@@ -1,0 +1,24 @@
+{
+    "id": "207CC481",
+    "path": "~/3 AI/Data science/taak1/Titanic/taak.R",
+    "project_path": "taak.R",
+    "type": "r_source",
+    "hash": "1964456293",
+    "contents": "",
+    "dirty": true,
+    "created": 1603799058222.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "cursorPosition": "20,16",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1603810012,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1603810204746,
+    "read_only": false,
+    "read_only_alternatives": []
+}

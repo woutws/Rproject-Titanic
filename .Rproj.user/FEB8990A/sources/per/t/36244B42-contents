@@ -1,0 +1,71 @@
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+install.packages('forcats')
+install.packages('stringr')
+
+
+library(forcats)
+library(stringr)
+
+
+#gss_cat2<-(gss_cat<-(na = c("No answer", "Don't know","Refused","Not applicable", "NA")))
+
+ggplot(data = gss_cat) + geom_bar(mapping = aes(x = rincome)) + group_by(relig)
+
+ggplot(data = gss_cat, mapping =  aes(x = relig ,y = tvhours )) + geom_point()
+
+#oef 4 c
+relig <- gss_cat %>%
+  group_by(relig) %>%
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()
+  )
+
+ggplot(gss_cat, aes(tvhours, partyid)) + geom_point() 
+
+#oef 4 d
+
+indep <- c(
+  "Ind,near rep",
+  "Independent",
+  "Ind,near dem"
+)
+dk <- c(
+  "Other party",
+  "No answer",
+  "Don't know"
+)
+dem <- c(
+  "Not str democrat",
+  "Strong democrat"
+)
+rep <-c(
+  "Not str republican",
+  "Strong republican"
+)
+gss_cat_v2 <- gss_cat %>%
+  mutate(partyid_new = fct_collapse(partyid, independent = indep, dontknow = dk, democrat = dem, republican = rep))
+ggplot(gss_cat_v2) + geom_boxplot(mapping = aes(x = partyid_new, y = tvhours))
+
+w<-c("a123","v11","123a45678")
+#oef 5 c
+# 5a.
+words[str_detect(words, "^y")]
+# 5b.
+words[str_detect(words, "x$")]
+# 5c.
+words[str_detect(words, "^.{3}$")]
+# 5d. 
+words[str_detect(words, "^.{7,}$")]
+# 5e.
+words[str_detect(words, "^[aeiou]")]
+# 5f.
+words[str_detect(words, "^[^aeiouy]*$")]
+# 5g
+words[str_detect(words, "[^e]ed$")]
+# 5h
+words[str_detect(words, "ing|ise$")]

@@ -1,0 +1,512 @@
+}
+library(tidyverse)
+install.packAges("tidyverse")
+if(!require(dplyr)) {
+install.packages("readr")
+}
+if(!require(ggplot2)) {
+install.packages("ggplot2")
+}
+if(!require(readr)) {
+install.packages("readr")
+}
+if(!require(scales)){
+install.packages("scales")
+}
+if(!require(data.table)){
+install.packages("data.table")
+}
+if(!require(tidyverse)){
+install.packages("tidyverse")
+}
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+library(tidyverse)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor(),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked")))
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor(),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked")))
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor(),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked")skip=0))
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor(),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=0))
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=0)
+View(titanic)
+View(titanic)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+View(titanic)
+# survived naar true en false zetten en age classes maken
+titanic <- titanic %>% mutate(Agegroup = case_when(Age <= 21  ~ 'child',
+Age > 21  ~ 'adult'))
+titanic<- mutate(titanic, Survived = as.logical(Survived))
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "PercentAge", x = "Siblings and spouse")
+#kijken hoeveel procent mannen er overleven tegenover vrouwen
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+ggplot(data = titanic) + geom_bar(mapping = aes(x= Agegroup, fill = Survived),position = "fill")
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age, fill= Class),color='black', binwidth = 5,position = "dodge")
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age, fill= Class),color='black', binwidth = 10,position = "dodge")
+titanic$Class <- factor(titanic$Class,
+ordered = T,
+levels = c(1,2,3))
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age, fill= Class),color='black', binwidth = 10,position = "dodge")
+#hangt het er vanaf waar je aan boort bent gegaan
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+#is overleven leeftijsdafhankelijk
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age,fill=Survived),color='black',binwidth = 5,position = "dodge")
+#waar komt welke klasse het meeste aan boort procentueel
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Class,y = (stat(count))/sum(stat(count)),fill=Embarked), position = "dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Class")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+if(!require(dplyr)) {
+install.packages("readr")
+}
+if(!require(ggplot2)) {
+install.packages("ggplot2")
+}
+if(!require(readr)) {
+install.packages("readr")
+}
+if(!require(scales)){
+install.packages("scales")
+}
+if(!require(data.table)){
+install.packages("data.table")
+}
+#taak 1
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+library(forcats)
+library(stringr)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+if(!require(dplyr)) {
+install.packages("readr")
+}
+if(!require(ggplot2)) {
+install.packages("ggplot2")
+}
+if(!require(readr)) {
+install.packages("readr")
+}
+if(!require(scales)){
+install.packages("scales")
+}
+if(!require(data.table)){
+install.packages("data.table")
+}
+#taak 1
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+?`packageInfo-class`
+install.packages()
+titanic<-titanic %>%
+select(-Fare,-Ticket,-Name,-Parents_children)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+getwd()
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+col_factor(),
+col_character(),
+col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+col_factor()
+col_factor
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+readr::col_factor(),
+col_character(),
+readr::col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+readr::col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+search()
+#taak 1
+library(scales)
+search()
+library(readr)
+search()
+if(!require(dplyr)) {
+install.packages("readr")
+}
+if(!require(ggplot2)) {
+install.packages("ggplot2")
+}
+if(!require(readr)) {
+install.packages("readr")
+}
+if(!require(scales)){
+install.packages("scales")
+}
+if(!require(data.table)){
+install.packages("data.table")
+}
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+#section libraries
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+readr::col_factor(),
+col_character(),
+readr::col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+readr::col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+#discard variables
+titanic<-titanic %>%
+select(-Fare,-Ticket,-Name,-Parents_children)
+#Order classes
+titanic$Class <- factor(titanic$Class,
+ordered = T,
+levels = c(1,2,3))
+#make age classes
+titanic <- titanic %>% mutate(Agegroup = case_when(Age <= 21  ~ 'child',
+Age > 21  ~ 'adult'))
+#change survived to true and false
+titanic<- mutate(titanic, Survived = as.logical(Survived))
+#kijken hoeveel procent mannen er overleven tegenover vrouwen
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+ggplot(data = titanic) + geom_bar(mapping = aes(x= Agegroup, fill = Survived),position = "fill")
+#kijken hoeveel procent mannen er overleven tegenover vrouwen
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+ggplot(data = titanic) + geom_bar(mapping = aes(x= Agegroup, fill = Survived),position = "fill")
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age, fill= Class),color='black', binwidth = 10,position = "dodge")
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+unique(titanic$Embarked)
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+#hangt het er vanaf waar je aan boort bent gegaan
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+unique(titanic$Embarked)
+titanic<-mutate(titanic, Embarked= ifelse(Embarked == "",NA,Embarked))
+unique(titanic$Embarked)
+#is overleven leeftijsdafhankelijk
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age,fill=Survived),color='black',binwidth = 5,position = "dodge")
+#hangt het er vanaf waar je aan boort bent gegaan
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+#Install required
+#Section install packages
+if(!require(dplyr)) {
+install.packages("readr")
+}
+if(!require(ggplot2)) {
+install.packages("ggplot2")
+}
+if(!require(readr)) {
+install.packages("readr")
+}
+if(!require(scales)){
+install.packages("scales")
+}
+if(!require(data.table)){
+install.packages("data.table")
+}
+#endsection
+#Load libraries
+#section libraries
+library(scales)
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(data.table)
+#endsection
+#Section Read csv and clean data
+titanic<-read_csv('train.csv',
+col_types = list(col_double(),
+col_double(),
+readr::col_factor(),
+col_character(),
+readr::col_factor(),
+col_double(),
+col_double(),
+col_double(),
+col_character(),
+col_double(),
+col_character(),
+readr::col_factor()),col_names = c("PassengerId","Survived","Class","Name","Sex","Age","Siblings_and_spouse","Parents_children",
+"Ticket","Fare","Cabin","Embarked"),skip=1)
+#discard variables
+titanic<-titanic %>%
+select(-Fare,-Ticket,-Name,-Parents_children)
+#Order classes
+titanic$Class <- factor(titanic$Class,
+ordered = T,
+levels = c(1,2,3))
+#make age classes
+titanic <- titanic %>% mutate(Agegroup = case_when(Age <= 21  ~ 'child',
+Age > 21  ~ 'adult'))
+#change survived to true and false
+titanic<- mutate(titanic, Survived = as.logical(Survived))
+#endsection
+#Survival based on age group and gender
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+#this graph is the same but visualized differently
+#ggplot(data = titanic) + geom_bar(mapping = aes(x= Agegroup, fill = Survived),position = "fill")
+#Overview age per class
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age, fill= Class),color='black', binwidth = 10,position = "dodge")
+#hangt het er vanaf waar je aan boort bent gegaan
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+#is overleven leeftijsdafhankelijk
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age,fill=Survived),color='black',binwidth = 5,position = "dodge")
+#waar komt welke klasse het meeste aan boort procentueel
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Class,y = (stat(count))/sum(stat(count)),fill=Embarked), position = "dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Class")
+# hoeveel mensen hebben het overleeft die een familie hebben
+# ..count.. returned by a stat transformation of the original data set
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+#hangt het er vanaf waar je aan boort bent gegaan
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+#Survival based on boarding place
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Survived,fill=Embarked),position = "dodge")
+titanic
+?titanci
+?titanic
+#is overleven leeftijsdafhankelijk
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age,fill=Survived),color='black',binwidth = 5,position = "dodge")
+#Survival based on age group and gender
+ggplot(data = titanic) + geom_bar(mapping = aes(x = Survived,fill=Sex),position="dodge") + facet_wrap(~Agegroup)
+#is overleven leeftijsdafhankelijk
+ggplot(data=titanic) + geom_histogram(mapping = aes(x = Age,fill=Survived),color='black',binwidth = 5,position = "dodge")
+#waar komt welke klasse het meeste aan boort procentueel
+ggplot(data=titanic) + geom_bar(mapping = aes(x = Class,y = (stat(count))/sum(stat(count)),fill=Embarked), position = "dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Class")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+#Overview Classes and family
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse, y = (..count..)/sum(..count..) ,fill=Class),position="dodge")+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+ggplot(data = titanic) + geom_bar(mapping = aes(x=Siblings_and_spouse,y = (..count..)/sum(..count..) ,fill=Survived),position = 'dodge')+ scale_y_continuous(labels=percent) + labs( y = "Percentage", x = "Siblings and spouse")
+titanic
+Titanic
